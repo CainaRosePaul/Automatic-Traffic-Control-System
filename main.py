@@ -6,11 +6,10 @@ import serial
 
 import time
 
-serialcomm = serial.Serial('COM4', 9600)
+arduino = serial.Serial('COM3', 9600)
+time.sleep(1)
 
-serialcomm.timeout = 1
-i= input("Enter Input: ").strip()
-serialcomm.write("rrlron".encode())
+arduino.write(b'1')
 
 #rc = right()
 #lc = left()
@@ -23,8 +22,9 @@ def sleep(seconds):
 #rc=3
 #lc=2
 current=1
-flagr=0
-flagl=0
+flagr = 0
+flagl = 0
+
 def test():
     global current
     global flagr
@@ -43,20 +43,21 @@ def test():
             flagr=0
             timer=45+(3*(lc-1))
             print("green @ left")
-            i = input("Enter Input: ").strip()
-            serialcomm.write("lroff".encode())
+            arduino.write(b'2')
 
             sleep(timer)
-            i = input("Enter Input: ").strip()
-            serialcomm.write("lgoff".encode())
+
+            arduino.write(b'3')
             test()
         timer=45+(3*(rc-1))
         print("green @ right")
-        i = input("Enter Input: ").strip()
-        serialcomm.write("rroff".encode())
+
+        arduino.write(b'4')
+
         sleep(timer)
-        i = input("Enter Input: ").strip()
-        serialcomm.write("rgoff".encode())
+
+        arduino.write(b'5')
+
         test()
     elif(lc>rc):
         current=0
@@ -68,21 +69,23 @@ def test():
             flagl=0
             timer=45+(3*(rc-1))
             print("green @ right")
-            i = input("Enter Input: ").strip()
-            serialcomm.write("rroff".encode())
+
+            arduino.write(b'4')
+
             sleep(timer)
-            i = input("Enter Input: ").strip()
-            serialcomm.write("rgoff".encode())
+
+            arduino.write(b'5')
+
             # sleep(timer)
             test()
         timer =45+(3*(lc-1))
         print("green @ left")
-        i = input("Enter Input: ").strip()
-        serialcomm.write("lroff".encode())
+
+        arduino.write(b'2')
 
         sleep(timer)
-        i = input("Enter Input: ").strip()
-        serialcomm.write("lgoff".encode())
+
+        arduino.write(b'3')
         # sleep(timer)
         test()
     else:
@@ -92,13 +95,12 @@ def test():
             flagr=0
             timer=45+(3*(lc-1))
             print("green @ left")
-            i = input("Enter Input: ").strip()
-            serialcomm.write("lroff".encode())
+
+            arduino.write(b'2')
 
             sleep(timer)
-            i = input("Enter Input: ").strip()
-            serialcomm.write("lgoff".encode())
-            # sleep(timer)
+
+            arduino.write(b'3')
             test()
         else:
             current = 1
@@ -106,21 +108,11 @@ def test():
             flagl = 0
             timer = 45 + (3 * (rc - 1))
             print("green @ right")
-            i = input("Enter Input: ").strip()
-            serialcomm.write("rroff".encode())
+
+            arduino.write(b'4')
             sleep(timer)
-            i = input("Enter Input: ").strip()
-            serialcomm.write("rgoff".encode())
+            arduino.write(b'5')
             # sleep(timer)
             test()
 
 test()
-
-
-
-
-
-
-
-
-
