@@ -1,11 +1,6 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 
-int lr =  8;
-int lg =  10;
-
-int rr = 11;
-int rg = 12;
 
 int datafromUser = 0;
 int x1 = 0;
@@ -22,7 +17,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 void setup()
 {
   // initialize the LCD
-  Serial.begin(9400);
+  Serial.begin(9600);
   lcd.begin();
   lcd.clear();
 
@@ -35,14 +30,6 @@ void setup()
   lcd.setCursor(0, 1);
   lcd.print(x2);
   lcd.print(" Sensor 2 ");
-
-  pinMode( lr, OUTPUT );
-  pinMode( lg, OUTPUT );
-
-  pinMode( rr, OUTPUT );
-  pinMode( rg, OUTPUT );
-
-  
 }
 
 void loop()
