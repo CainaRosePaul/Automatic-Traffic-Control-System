@@ -6,15 +6,15 @@ import serial
 
 import time
 
-arduino = serial.Serial('COM3', 9600)
+arduino1 = serial.Serial('COM5', 9000)
+arduino2 = serial.Serial('COM3', 9600)
 time.sleep(1)
 
-arduino.write(b'1')
+arduino1.write(b'1')
 
 #rc = right()
 #lc = left()
 
-import time
 def sleep(seconds):
     print(f"sleeping for {seconds}")
     time.sleep(seconds)
@@ -43,20 +43,87 @@ def test():
             flagr=0
             timer=45+(3*(lc-1))
             print("green @ left")
-            arduino.write(b'2')
+            arduino1.write(b'2')
 
-            sleep(timer)
+            sleep(timer-3)
 
-            arduino.write(b'3')
+            arduino1.write(b'6')
+
+            sleep(3)
+
+            arduino2.write(b'1')
+            data1 = arduino2.readline()
+            str = data1.decode('utf-8')
+            count1 = int(float(str))
+            print(count1)
+
+            data2 = arduino2.readline()
+            str = data2.decode('utf-8')
+            count2 = int(float(str))
+            print(count2)
+
+            if (count1 - count2 == 0):
+                print("No Vehicle on the bridge")
+                arduino2.write(b'2')
+            else:
+                print("Vehicle is there on the bridge")
+                while(count1 != count2):
+                    print("Vehicle is still there")
+                    arduino2.write(b'1')
+                    data1 = arduino2.readline()
+                    str = data1.decode('utf-8')
+                    count1 = int(float(str))
+
+
+                    data2 = arduino2.readline()
+                    str = data2.decode('utf-8')
+                    count2 = int(float(str))
+
+                print("bridge is clear")
+                arduino2.write(b'2')
+            arduino1.write(b'3')
             test()
         timer=45+(3*(rc-1))
         print("green @ right")
 
-        arduino.write(b'4')
+        arduino1.write(b'4')
 
-        sleep(timer)
+        sleep(timer-3)
 
-        arduino.write(b'5')
+        arduino1.write(b'7')
+
+        sleep(3)
+
+        arduino2.write(b'1')
+        data1 = arduino2.readline()
+        str = data1.decode('utf-8')
+        count1 = int(float(str))
+        print(count1)
+
+        data2 = arduino2.readline()
+        str = data2.decode('utf-8')
+        count2 = int(float(str))
+        print(count2)
+
+        if (count1 - count2 == 0):
+            print("No Vehicle on the bridge")
+            arduino2.write(b'2')
+        else:
+            print("Vehicle is there on the bridge")
+            while (count1 != count2):
+                print("Vehicle is still there")
+                arduino2.write(b'1')
+                data1 = arduino2.readline()
+                str = data1.decode('utf-8')
+                count1 = int(float(str))
+
+                data2 = arduino2.readline()
+                str = data2.decode('utf-8')
+                count2 = int(float(str))
+            print("Bridge is clear")
+            arduino2.write(b'2')
+
+        arduino1.write(b'5')
 
         test()
     elif(lc>rc):
@@ -70,22 +137,88 @@ def test():
             timer=45+(3*(rc-1))
             print("green @ right")
 
-            arduino.write(b'4')
+            arduino1.write(b'4')
 
-            sleep(timer)
+            sleep(timer-3)
 
-            arduino.write(b'5')
+            arduino1.write(b'7')
+
+            sleep(3)
+
+            arduino2.write(b'1')
+            data1 = arduino2.readline()
+            str = data1.decode('utf-8')
+            count1 = int(float(str))
+            print(count1)
+
+            data2 = arduino2.readline()
+            str = data2.decode('utf-8')
+            count2 = int(float(str))
+            print(count2)
+
+            if (count1 - count2 == 0):
+                print("No Vehicle on the bridge")
+                arduino2.write(b'2')
+            else:
+                print("Vehicle is there on the bridge")
+                while (count1 != count2):
+                    print("Vehicle is still there")
+                    arduino2.write(b'1')
+                    data1 = arduino2.readline()
+                    str = data1.decode('utf-8')
+                    count1 = int(float(str))
+
+                    data2 = arduino2.readline()
+                    str = data2.decode('utf-8')
+                    count2 = int(float(str))
+                print("Bridge is clear")
+                arduino2.write(b'2')
+
+            arduino1.write(b'5')
 
             # sleep(timer)
             test()
         timer =45+(3*(lc-1))
         print("green @ left")
 
-        arduino.write(b'2')
+        arduino1.write(b'2')
 
-        sleep(timer)
+        sleep(timer-3)
 
-        arduino.write(b'3')
+        arduino1.write(b'6')
+
+        sleep(3)
+
+        arduino2.write(b'1')
+        data1 = arduino2.readline()
+        str = data1.decode('utf-8')
+        count1 = int(float(str))
+        print(count1)
+
+        data2 = arduino2.readline()
+        str = data2.decode('utf-8')
+        count2 = int(float(str))
+        print(count2)
+
+        if (count1 - count2 == 0):
+            print("No Vehicle on the bridge")
+            arduino2.write(b'2')
+        else:
+            print("Vehicle is there on the bridge")
+            while (count1 != count2):
+                print("Vehicle is still there")
+                arduino2.write(b'1')
+                data1 = arduino2.readline()
+                str = data1.decode('utf-8')
+                count1 = int(float(str))
+
+                data2 = arduino2.readline()
+                str = data2.decode('utf-8')
+                count2 = int(float(str))
+            print("Bridge is clear")
+            arduino2.write(b'2')
+
+        arduino1.write(b'3')
         # sleep(timer)
         test()
     else:
@@ -96,11 +229,44 @@ def test():
             timer=45+(3*(lc-1))
             print("green @ left")
 
-            arduino.write(b'2')
+            arduino1.write(b'2')
 
-            sleep(timer)
+            sleep(timer-3)
 
-            arduino.write(b'3')
+            arduino1.write(b'6')
+
+            sleep(3)
+
+            arduino2.write(b'1')
+            data1 = arduino2.readline()
+            str = data1.decode('utf-8')
+            count1 = int(float(str))
+            print(count1)
+
+            data2 = arduino2.readline()
+            str = data2.decode('utf-8')
+            count2 = int(float(str))
+            print(count2)
+
+            if (count1 - count2 == 0):
+                print("No Vehicle on the bridge")
+                arduino2.write(b'2')
+            else:
+                print("Vehicle is there on the bridge")
+                while (count1 != count2):
+                    print("Vehicle is still there")
+                    arduino2.write(b'1')
+                    data1 = arduino2.readline()
+                    str = data1.decode('utf-8')
+                    count1 = int(float(str))
+
+                    data2 = arduino2.readline()
+                    str = data2.decode('utf-8')
+                    count2 = int(float(str))
+                print("Bridge is clear")
+                arduino2.write(b'2')
+
+            arduino1.write(b'3')
             test()
         else:
             current = 1
@@ -109,9 +275,43 @@ def test():
             timer = 45 + (3 * (rc - 1))
             print("green @ right")
 
-            arduino.write(b'4')
-            sleep(timer)
-            arduino.write(b'5')
+            arduino1.write(b'4')
+            sleep(timer-3)
+
+            arduino1.write(b'7')
+
+            sleep(3)
+
+            arduino2.write(b'1')
+            data1 = arduino2.readline()
+            str = data1.decode('utf-8')
+            count1 = int(float(str))
+            print(count1)
+
+            data2 = arduino2.readline()
+            str = data2.decode('utf-8')
+            count2 = int(float(str))
+            print(count2)
+
+            if (count1 - count2 == 0):
+                print("No Vehicle on the bridge")
+                arduino2.write(b'2')
+            else:
+                print("Vehicle is there on the bridge")
+                while (count1 != count2):
+                    print("Vehicle is still there")
+                    arduino2.write(b'1')
+                    data1 = arduino2.readline()
+                    str = data1.decode('utf-8')
+                    count1 = int(float(str))
+
+                    data2 = arduino2.readline()
+                    str = data2.decode('utf-8')
+                    count2 = int(float(str))
+                print("Bridge is clear")
+                arduino2.write(b'2')
+
+            arduino1.write(b'5')
             # sleep(timer)
             test()
 

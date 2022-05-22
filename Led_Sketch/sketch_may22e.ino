@@ -1,20 +1,23 @@
-int datafromUser=0;
-
 int lr =  8;
+int ly =  9;
 int lg =  10;
 
 int rr = 11;
-int rg = 12;
+int ry = 12;
+int rg = 13;
+
+int datafromUser = 0;
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9000);
   pinMode( lr, OUTPUT );
   pinMode( lg, OUTPUT );
+  pinMode( ly, OUTPUT );
 
   pinMode( rr, OUTPUT );
   pinMode( rg, OUTPUT );
-  
-  Serial.begin(9600);
+  pinMode( ry, OUTPUT );
 }
 
 void loop() {
@@ -22,8 +25,9 @@ void loop() {
   if(Serial.available() > 0)
   {
     datafromUser=Serial.read();
+    //Serial.print(datafromUser);
   }
-
+  //led
   if(datafromUser == '1')
   {
     digitalWrite( lr , HIGH );
@@ -36,9 +40,9 @@ void loop() {
   }
   else if(datafromUser == '3')
   {
-    digitalWrite( lg, LOW);
+    digitalWrite( ly, LOW);
     digitalWrite( lr, HIGH );
-  }
+  }                                                                          
   else if(datafromUser == '4')
   {
     digitalWrite( rr, LOW);
@@ -46,8 +50,19 @@ void loop() {
   }
   else if(datafromUser == '5')
   {
-    digitalWrite( rg, LOW);
+    digitalWrite( ry, LOW);
     digitalWrite( rr, HIGH );
+  }
+  else if(datafromUser == '6')
+  {
+    digitalWrite( lg, LOW);
+    digitalWrite( ly, HIGH );
+  }
+
+  else if(datafromUser == '7')
+  {
+    digitalWrite( rg, LOW);
+    digitalWrite( ry, HIGH );
   }
   
 }
